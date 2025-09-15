@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Share Code - KeyDrop</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Enter Share Code</h1>
+        <nav>
+            <a href="/">Back to Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="code-entry-section">
+            <div class="code-entry-card">
+                <h2>Quick Access</h2>
+                <p>Enter the share code you received to access the content</p>
+
+                <form id="codeForm" method="GET" action="/quick-view" class="code-form">
+                    <div class="form-group">
+                        <label for="shareCode">Share Code</label>
+                        <input type="text"
+                               id="shareCode"
+                               name="code"
+                               placeholder="Enter code (e.g. ABC123)"
+                               required
+                               maxlength="50"
+                               autocomplete="off">
+                        <p class="hint">Just enter the code, no need for full URL</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Access Content</button>
+                </form>
+
+                <div class="quick-tips">
+                    <h3>💡 Quick Tips</h3>
+                    <ul>
+                        <li>Codes are case-sensitive</li>
+                        <li>Typical code format: 8 characters (letters and numbers)</li>
+                        <li>Content expires automatically after 24 hours</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; KeyDrop Made By Varad Dandagavhal </p>
+    </footer>
+</div>
+
+<script th:src="@{/js/app.js}"></script>
+<script>
+    // Focus on the input field when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('shareCode').focus();
+
+        // Allow pressing Enter to submit
+        document.getElementById('shareCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('codeForm').submit();
+            }
+        });
+    });
+</script>
+</body>
+</html>

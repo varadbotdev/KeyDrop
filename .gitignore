@@ -1,0 +1,10 @@
+target/
+*.log
+*.iml
+.idea/
+*.mv.db
+*.trace.db
+node_modules/
+npm-debug.log
+yarn-error.log
+.DS_Store

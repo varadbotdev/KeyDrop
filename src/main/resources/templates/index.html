@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyDrop </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>KeyDrop</h1>
+        <p>Share text and files with anyone </p>
+    </header>
+
+    <main>
+        <!-- Quick Code Entry Section -->
+        <div class="quick-access-section">
+            <div class="quick-access-card">
+                <h2>Have a Share Code?</h2>
+                <p>Enter it below to quickly access shared content</p>
+
+                <form id="quickCodeForm" method="GET" action="/quick-view" class="quick-code-form">
+                    <input type="text"
+                           name="code"
+                           placeholder="Enter share code"
+                           required
+                           maxlength="50"
+                           autocomplete="off">
+                    <button type="submit" class="btn btn-primary">Go</button>
+                </form>
+
+                <div class="or-divider">
+                    <span>OR</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero">
+            <div class="hero-content">
+                <h2>How It Works</h2>
+                <ol>
+                    <li>Click "Share Content" to upload text or files</li>
+                    <li>We generate a unique random code for your content</li>
+                    <li>Share the code with anyone you want</li>
+                    <li>They can view/download using the code</li>
+                    <li>Content auto-expires after 24 hours (configurable)</li>
+                </ol>
+
+                <div class="cta-buttons">
+                    <a href="/share" class="btn btn-primary">Share Content</a>
+                    <a href="/enter-code" class="btn btn-secondary">Enter Code</a>
+                </div>
+            </div>
+        </div>
+
+        <section id="how-to-use" class="section">
+            <h2>How to Use</h2>
+            <div class="how-to-grid">
+                <div class="how-to-item">
+                    <h3>1. Share</h3>
+                    <p>Upload your text or file and customize settings like expiration time and maximum views.</p>
+                </div>
+                <div class="how-to-item">
+                    <h3>2. Get Code</h3>
+                    <p>Receive a unique random code that you can share with others via any messaging platform.</p>
+                </div>
+                <div class="how-to-item">
+                    <h3>3. Access</h3>
+                    <p>Others can access your content by entering the code on the homepage or at <code>/enter-code</code>.</p>
+                </div>
+                <div class="how-to-item">
+                    <h3>4. Auto-Expire</h3>
+                    <p>Content automatically expires based on your settings, ensuring privacy and security.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section features">
+            <h2>Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>🔒 Secure</h3>
+                    <p>Random codes make it difficult for unauthorized users to access your content.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>⏱️ Auto-Expiring</h3>
+                    <p>Set custom expiration times or use the default 24-hour window.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>📊 View Limits</h3>
+                    <p>Limit how many times your content can be viewed before it's deleted.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>📁 File Support</h3>
+                    <p>Share any type of file up to 50MB in size.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; KeyDrop Made By Varad Dandagavhal</p>
+    </footer>
+</div>
+
+<script th:src="@{/js/app.js}"></script>
+<script>
+    // Focus on the quick code input if it exists
+    document.addEventListener('DOMContentLoaded', function() {
+        const quickInput = document.querySelector('.quick-code-form input');
+        if (quickInput) {
+            quickInput.focus();
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Shared Content - KeyDrop</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Shared Content</h1>
+        <nav>
+            <a href="/"> Back to Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <div th:if="${content}" class="content-view">
+            <div class="content-info">
+                <p><strong>Share Code:</strong> <span th:text="${content.shareCode}"></span></p>
+                <p><strong>Created:</strong> <span th:text="${#temporals.format(content.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
+                <p><strong>Views:</strong> <span th:text="${content.viewCount}"></span>
+                    <span th:if="${content.maxViews != null}"> / <span th:text="${content.maxViews}"></span></span>
+                </p>
+                <p><strong>Expires:</strong>
+                    <span th:if="${content.expiresAt}" th:text="${#temporals.format(content.expiresAt, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                    <span th:unless="${content.expiresAt}">Never</span>
+                </p>
+            </div>
+
+            <div th:if="${content.contentText}" class="text-content">
+                <h3>Text Content</h3>
+                <div class="text-content-body" th:text="${content.contentText}"></div>
+            </div>
+
+            <div th:if="${content.fileName}" class="file-content">
+                <h3>File Content</h3>
+                <div class="file-info">
+                    <p><strong>File Name:</strong> <span th:text="${content.fileName}"></span></p>
+                    <p><strong>File Type:</strong> <span th:text="${content.fileContentType} ?: 'Unknown'"></span></p>
+                    <p><strong>File Size:</strong>
+                        <span th:if="${content.fileSize != null}"
+                              th:text="${T(org.apache.commons.io.FileUtils).byteCountToDisplaySize(content.fileSize)}"></span>
+                        <span th:unless="${content.fileSize != null}">Unknown</span>
+                    </p>
+                    <p><strong>File Available:</strong> <span th:text="${content.fileData != null ? 'Yes' : 'No'}"></span></p>
+                </div>
+                <div class="file-actions" th:if="${content.fileData != null}">
+                    <a th:href="@{/download/{code}(code=${content.shareCode})}" class="btn btn-primary">Download File</a>
+                </div>
+                <div class="alert alert-warning" th:unless="${content.fileData != null}">
+                    <p>File data is not available for download.</p>
+                </div>
+            </div>
+
+            <div class="content-actions">
+                <form th:action="@{/delete/{shareCode}(shareCode=${content.shareCode})}" method="post" onsubmit="return confirm('Are you sure you want to delete this content? This action cannot be undone.')">
+                    <button type="submit" class="btn btn-danger">Delete Content</button>
+                </form>
+            </div>
+        </div>
+
+        <div th:unless="${content}" class="alert alert-error">
+            <h3>Content Not Found</h3>
+            <p>The content you're looking for doesn't exist or has expired.</p>
+            <a href="/" class="btn btn-primary">Go to Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; KeyDrop 2025 Made By Varad</p>
+    </footer>
+</div>
+
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
